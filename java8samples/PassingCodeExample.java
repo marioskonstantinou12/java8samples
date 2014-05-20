@@ -29,13 +29,17 @@ public class PassingCodeExample {
 
         List<Car> cars = Arrays.asList(red, white, green);
 
+        //filter white cars
         List<Car> whiteCars = filterCars(cars, Car::isWhiteCar);
-        
-        List<Car> oldCars = filterCars(cars, Car::isOldCar);
-
         whiteCars.stream().forEach(n -> System.out.println(n.getMake()));
-        
-        oldCars.stream().forEach(n -> System.out.println(n.getColor() + " " + n.getMake() + " "+n.getYear()));
+
+        //filter old cars
+        List<Car> oldCars = filterCars(cars, Car::isOldCar);
+        oldCars.stream().forEach(n -> System.out.println(n.getColor() + " " + n.getMake() + " " + n.getYear()));
+
+        //use other custom predicates - Green cars, more than 10 y.o.
+        List<Car> oldAndGreenCars = filterCars(cars, (Car c) -> "green".equals(c.getColor()) || c.getYear() >= 10);
+        oldAndGreenCars.stream().forEach(n -> System.out.println(n.getColor() + " " + n.getMake() + " " + n.getYear()));
     }
 
     private static List<Car> filterCars(List<Car> cars, Predicate<Car> p) {
@@ -67,8 +71,7 @@ public class PassingCodeExample {
         public void setMake(String make) {
             this.make = make;
         }
-        
-        
+
         public String getColor() {
             return color;
         }
